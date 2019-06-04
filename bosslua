@@ -1,0 +1,92 @@
+local Avis = {}
+
+local function CastIfCan(caster, target, spell)
+    if (caster and target and not caster:GetCurrentSpell(1)) then
+        caster:CastSpell(target, spell)
+        return true
+    end
+    return false
+end
+
+function Avis.EnterCombat(event, creature, target)
+	creature:RegisterEvent(Avis.Brutalswipe, 35000, 0)
+	creature:RegisterEvent(Avis.Smash, 40000, 0)
+	creature:RegisterEvent(Avis.ForcefulSmash, 43000, 0)
+	creature:RegisterEvent(Avis.HowlofAzgalor, 14500, 0)
+	creature:RegisterEvent(Avis.ScreamsoftheDead, 19500, 0)
+	creature:RegisterEvent(Avis.WhirlingSlash, 9000, 0)
+	creature:RegisterEvent(Avis.ViolentEarth, 21500, 0)
+	creature:RegisterEvent(Avis.Impale, 27000, 0)
+	creature:RegisterEvent(Avis.TailSmash, 13500, 0)
+	creature:RegisterEvent(Avis.NumbingRoar, 22500, 0)
+	creature:RegisterEvent(Avis.GroundTremor, 33000, 0)
+end
+
+function Avis.KilledTarget(event, creature, victim)
+    CastIfCan(creature, creature, 21054)	
+end
+ 
+function Avis.LeaveCombat(event, creature)
+    creature:RemoveEvents()
+end
+ 
+function Avis.Died(event, creature, killer)
+    creature:RemoveEvents()
+	creature:SendUnitYell("huuuuuuuuuuuuuurl...", 0)
+end
+
+function Avis.Brutalswipe(event, delay, pCall, creature)
+    creature:PlayDirectSound(6160)
+    creature:CastSpell(creature:GetAITarget(0, true), 55324, true)
+end
+
+function Avis.Smash(event, delay, pCall, creature)
+    creature:PlayDirectSound(6160)
+    creature:CastSpell(creature:GetAITarget(0, true), 62414, true)
+end
+
+function Avis.ForcefulSmash(event, delay, pCall, creature)
+    creature:PlayDirectSound(6160)
+    creature:CastSpell(creature:GetAITarget(0, true), 69627, true)
+end
+
+function Avis.HowlofAzgalor(event, delay, pCall, creature)
+    creature:PlayDirectSound(6161)
+    creature:CastSpell(creature:GetAITarget(0, true), 31344, true)
+end
+
+function Avis.ScreamsoftheDead(event, delay, pCall, creature)
+    creature:PlayDirectSound(6161)
+    creature:CastSpell(creature:GetAITarget(0, true), 51750, true)
+end
+
+function Avis.WhirlingSlash(event, delay, pCall, creature)
+    creature:CastSpell(creature:GetAITarget(0, true), 59825, true)
+end
+
+function Avis.ViolentEarth(event, delay, pCall, creature)
+    creature:CastSpell(creature:GetAITarget(0, true), 63547, true)
+end
+
+function Avis.Impale(event, delay, pCall, creature)
+    creature:CastSpell(creature:GetAITarget(0, true), 67860, true)
+end
+
+function Avis.TailSmash(event, delay, pCall, creature)
+    creature:CastSpell(creature:GetAITarget(0, true), 71369, true)
+end
+
+function Avis.NumbingRoar(event, delay, pCall, creature)
+    creature:PlayDirectSound(6161)
+    creature:CastSpell(creature:GetAITarget(0, true), 55100, true)
+end
+
+function Avis.GroundTremor(event, delay, pCall, creature)
+    creature:CastSpell(creature:GetAITarget(0, true), 62932, true)
+end
+
+
+RegisterCreatureEvent(900009, 1, Avis.EnterCombat)
+RegisterCreatureEvent(900009, 2, Avis.LeaveCombat)
+RegisterCreatureEvent(900009, 3, Avis.KilledTarget)
+RegisterCreatureEvent(900009, 4, Avis.Died)	   
