@@ -1,0 +1,92 @@
+local Tyranus = {}
+
+local function CastIfCan(caster, target, spell)
+    if (caster and target and not caster:GetCurrentSpell(1)) then
+        caster:CastSpell(target, spell)
+        return true
+    end
+    return false
+end
+
+function Tyranus.EnterCombat(event, creature, target)
+	creature:RegisterEvent(Tyranus.Brutalswipe, 35000, 0)
+	creature:RegisterEvent(Tyranus.Smash, 40000, 0)
+	creature:RegisterEvent(Tyranus.ForcefulSmash, 43000, 0)
+	creature:RegisterEvent(Tyranus.HowlofAzgalor, 14500, 0)
+	creature:RegisterEvent(Tyranus.ScreamsoftheDead, 19500, 0)
+	creature:RegisterEvent(Tyranus.WhirlingSlash, 9000, 0)
+	creature:RegisterEvent(Tyranus.ViolentEarth, 21500, 0)
+	creature:RegisterEvent(Tyranus.Impale, 27000, 0)
+	creature:RegisterEvent(Tyranus.TailSmash, 13500, 0)
+	creature:RegisterEvent(Tyranus.NumbingRoar, 22500, 0)
+	creature:RegisterEvent(Tyranus.GroundTremor, 33000, 0)
+end
+
+function Tyranus.KilledTarget(event, creature, victim)
+    CastIfCan(creature, creature, 21054)	
+end
+ 
+function Tyranus.LeaveCombat(event, creature)
+    creature:RemoveEvents()
+end
+ 
+function Tyranus.Died(event, creature, killer)
+    creature:RemoveEvents()
+	creature:SendUnitYell("huuuuuuuuuuuuuurl...", 0)
+end
+
+function Tyranus.Brutalswipe(event, delay, pCall, creature)
+    creature:PlayDirectSound(6160)
+    creature:CastSpell(creature:GetAITarget(0, true), 55324, true)
+end
+
+function Tyranus.Smash(event, delay, pCall, creature)
+    creature:PlayDirectSound(6160)
+    creature:CastSpell(creature:GetAITarget(0, true), 62414, true)
+end
+
+function Tyranus.ForcefulSmash(event, delay, pCall, creature)
+    creature:PlayDirectSound(6160)
+    creature:CastSpell(creature:GetAITarget(0, true), 69627, true)
+end
+
+function Tyranus.HowlofAzgalor(event, delay, pCall, creature)
+    creature:PlayDirectSound(6161)
+    creature:CastSpell(creature:GetAITarget(0, true), 31344, true)
+end
+
+function Tyranus.ScreamsoftheDead(event, delay, pCall, creature)
+    creature:PlayDirectSound(6161)
+    creature:CastSpell(creature:GetAITarget(0, true), 51750, true)
+end
+
+function Tyranus.WhirlingSlash(event, delay, pCall, creature)
+    creature:CastSpell(creature:GetAITarget(0, true), 59825, true)
+end
+
+function Tyranus.ViolentEarth(event, delay, pCall, creature)
+    creature:CastSpell(creature:GetAITarget(0, true), 63547, true)
+end
+
+function Tyranus.Impale(event, delay, pCall, creature)
+    creature:CastSpell(creature:GetAITarget(0, true), 67860, true)
+end
+
+function Tyranus.TailSmash(event, delay, pCall, creature)
+    creature:CastSpell(creature:GetAITarget(0, true), 71369, true)
+end
+
+function Tyranus.NumbingRoar(event, delay, pCall, creature)
+    creature:PlayDirectSound(6161)
+    creature:CastSpell(creature:GetAITarget(0, true), 55100, true)
+end
+
+function Tyranus.GroundTremor(event, delay, pCall, creature)
+    creature:CastSpell(creature:GetAITarget(0, true), 62932, true)
+end
+
+
+RegisterCreatureEvent(900005, 1, Tyranus.EnterCombat)
+RegisterCreatureEvent(900005, 2, Tyranus.LeaveCombat)
+RegisterCreatureEvent(900005, 3, Tyranus.KilledTarget)
+RegisterCreatureEvent(900005, 4, Tyranus.Died)	   
